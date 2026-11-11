@@ -18,7 +18,6 @@ output.appendChild(btn);
 
 btn.addEventListener("click" , () => {
 	btn.disabled = true;
-	output.textContent = "downloading...";
 	
 	const spinner = document.createElement("div");
 	spinner.className = "spinner";
