@@ -34,6 +34,7 @@ btn.addEventListener("click" , () => {
 				img.src = imageURL;
 				output.appendChild(img);
 				spinner.remove();
+				btn.disabled = false;
 			});
 		})
 		.catch((error) => {
@@ -42,11 +43,11 @@ btn.addEventListener("click" , () => {
 			msg.textContent = error.message;
 			output.appendChild(msg);
 			spinner.remove();
-	
+			btn.disabled = false;
 			
 		});
 });
-btn.disabled = false;
+
 
 const images = [
   { url: "https://picsum.photos/id/237/200/300" },
