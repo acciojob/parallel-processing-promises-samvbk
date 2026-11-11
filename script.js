@@ -31,7 +31,7 @@ const promises = images.map((image) => {
 
 Promise.all(promises)
 	.then((responses) => {
-		responses.forEach((response) =>{
+		const blobPromises = responses.map((response) =>{
 			if (!response.ok) {
 				throw new Error("Image download failed")
 			}
