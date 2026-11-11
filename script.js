@@ -29,7 +29,7 @@ const promises = images.map((image) => {
 	return fetch(image.url);
 });
 
-promise.all(promises)
+Promise.all(promises)
 	.then((responses) => {
 		responses.forEach((response) =>{
 			if (!response.ok) {
