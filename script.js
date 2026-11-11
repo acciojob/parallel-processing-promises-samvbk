@@ -1,6 +1,16 @@
 //your JS code here. If required.
 const output = document.getElementById("output");
 
+const images = [
+  { url: "https://picsum.photos/id/237/200/300" },
+  { url: "https://picsum.photos/id/238/200/300" },
+  { url: "https://picsum.photos/id/239/200/300" },
+];
+
+const promises = images.map((image) => {
+	return fetch(image.url);
+});
+
 const btn = document.createElement("button");
 btn.id = "download-images-button";
 btn.textContent = "Download Images";
@@ -49,15 +59,9 @@ btn.addEventListener("click" , () => {
 });
 
 
-const images = [
-  { url: "https://picsum.photos/id/237/200/300" },
-  { url: "https://picsum.photos/id/238/200/300" },
-  { url: "https://picsum.photos/id/239/200/300" },
-];
 
-const promises = images.map((image) => {
-	return fetch(image.url);
-});
+
+
 
 
 
