@@ -15,7 +15,36 @@ btn.addEventListener("click" , () => {
 	spinner.id = "loading"
 	output.appendChild(spinner);
 	
+	Promise.all(promises)
+		.then((responses) => {
+			const blobPromises = responses.map((response) =>{
+				if (!response.ok) {
+					throw new Error("Image download failed")
+				}
+				return response.blob();	
+			});
+			return Promise.all(blobPromises);
+		})
 	
+		.then((blobs) => {
+			blobs.forEach((blob) => {
+				const imageURL = URL.createObjectURL(blob);
+	
+				const img = document.createElement("img");
+				img.src = imageURL;
+				output.appendChild(img);
+				spinner.remove();
+			});
+		})
+		.catch((error) => {
+			const msg = document.createElement("div");
+			msg.id = "error";
+			msg.textContent = error.message;
+			output.appendChild(msg);
+			spinner.remove();
+	
+			
+		});
 });
 btn.disabled = false;
 
@@ -29,35 +58,6 @@ const promises = images.map((image) => {
 	return fetch(image.url);
 });
 
-Promise.all(promises)
-	.then((responses) => {
-		const blobPromises = responses.map((response) =>{
-			if (!response.ok) {
-				throw new Error("Image download failed")
-			}
-			console.log(response);	
-		});
-		return Promise.all(blobPromises);
-	})
 
-	.then((blobs) => {
-		blobs.forEach((blob) => {
-			const imageURL = URL.createObjectURL(blob);
-
-			const img = document.createElement("img");
-			img.src = imageURL;
-			output.appendChild(img);
-			spinner.remove();
-		});
-	});
-	.catch((error) => {
-		const msg = document.createElement("div");
-		msg.id = "error";
-		msg.textContent = error.message;
-		output.appendChild(msg);
-		spinner.remove();
-
-		
-	});
 
 
